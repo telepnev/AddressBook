@@ -1,3 +1,5 @@
+package ru.addressbook;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,11 +35,11 @@ public class CreateGroup {
     }
 
     @Test
-    public void testUntitledTestCase() throws Exception {
+    public void testUntitledTestCase() {
 
         gotoGroupPage();
         initGroupCreation();
-        fillGroupForm("Test2", "Test2", "Test2");
+        fillGroupForm(new GroupData("Test2", "Test2", "Test2"));
         submitGroupCreation();
         returnToGroupPage();
     }
@@ -50,16 +52,16 @@ public class CreateGroup {
         wb.findElement(By.name("submit")).click();
     }
 
-    private void fillGroupForm(String name, String header, String footer) {
+    private void fillGroupForm(GroupData groupData) {
         wb.findElement(By.name("group_name")).click();
         wb.findElement(By.name("group_name")).clear();
-        wb.findElement(By.name("group_name")).sendKeys(name);
+        wb.findElement(By.name("group_name")).sendKeys(groupData.getName());
         wb.findElement(By.name("group_header")).click();
         wb.findElement(By.name("group_header")).clear();
-        wb.findElement(By.name("group_header")).sendKeys(header);
+        wb.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
         wb.findElement(By.name("group_footer")).click();
         wb.findElement(By.name("group_footer")).clear();
-        wb.findElement(By.name("group_footer")).sendKeys(footer);
+        wb.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
     private void initGroupCreation() {
